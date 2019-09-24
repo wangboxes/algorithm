@@ -1,6 +1,11 @@
 package com.wbx._01_sort;
 
-public class _01_BubbleSort3 extends Sort {
+/**
+ * 优化2：如果序列尾部已经局部有序，可以记录最后1次交换的位置，减少比较次数
+ * @Date：2019/9/24 17:36
+ * @author：wbx
+ */
+public class _01_BubbleSort3<T extends Comparable> extends Sort<T> {
 
     @Override
     protected void sort() {

@@ -1,6 +1,6 @@
 package com.wbx._01_sort;
 
-public class _02_SelectionSort extends Sort {
+public class _02_SelectionSort<T extends Comparable> extends Sort<T> {
 
 	@Override
 	protected void sort() {

@@ -1,6 +1,10 @@
 package com.wbx._01_sort;
-
-public class _01_BubbleSort2 extends Sort {
+/**
+ * 优化：如果序列已经完全有序，可以提前终止冒泡排序
+ * @Date：2019/9/24 17:36
+ * @author：wbx
+ */
+public class _01_BubbleSort2<T extends Comparable> extends Sort<T> {
 
     @Override
     protected void sort() {
