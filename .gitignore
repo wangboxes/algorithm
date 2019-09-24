@@ -1,0 +1,35 @@
+#class files
+*.class
+# Package Files #
+*.war
+*.ear
+# ignore eclipse files
+*.project
+*.settings
+*.metadata
+*.classpath
+*settings/*
+.project
+.classpath
+.settings
+.metadata
+.DS_Store
+output
+target
+/.settings
+/.classpath
+/.project
+jira.mapping
+.eclipse-pmd
+# ignore idea files
+.idea
+*.iml
+# ignore Maven generated target folders
+target
+# ignore work runtime
+logs
+/logs
+*/logs
+output_scm
+.mvn
+/.idea/workspace.xml
