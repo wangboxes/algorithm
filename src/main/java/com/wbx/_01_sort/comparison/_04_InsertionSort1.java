@@ -1,4 +1,4 @@
-package com.wbx._01_sort.notComparison;
+package com.wbx._01_sort.comparison;
 
 /**
  * @describe：

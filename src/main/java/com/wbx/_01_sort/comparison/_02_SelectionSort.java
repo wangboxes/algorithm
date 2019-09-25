@@ -1,4 +1,6 @@
-package com.wbx._01_sort;
+package com.wbx._01_sort.comparison;
+
+import com.wbx._01_sort.Sort;
 
 public class _02_SelectionSort<T extends Comparable> extends Sort<T> {
 

@@ -1,4 +1,7 @@
-package com.wbx._01_sort;
+package com.wbx._01_sort.comparison;
+
+import com.wbx._01_sort.Sort;
+
 /**
  * @describe： 冒泡排序
  * 最好       最坏      平均      额外空间复杂的     in-place        稳定性

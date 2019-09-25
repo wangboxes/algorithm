@@ -1,4 +1,7 @@
-package com.wbx._01_sort;
+package com.wbx._01_sort.comparison;
+
+import com.wbx._01_sort.Sort;
+
 /**
  * 优化：如果序列已经完全有序，可以提前终止冒泡排序
  * @Date：2019/9/24 17:36

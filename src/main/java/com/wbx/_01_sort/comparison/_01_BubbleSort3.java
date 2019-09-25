@@ -1,4 +1,6 @@
-package com.wbx._01_sort;
+package com.wbx._01_sort.comparison;
+
+import com.wbx._01_sort.Sort;
 
 /**
  * 优化2：如果序列尾部已经局部有序，可以记录最后1次交换的位置，减少比较次数
