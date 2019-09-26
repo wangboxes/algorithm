@@ -1,6 +1,7 @@
 package com.wbx._01_sort;
 
-import com.wbx._01_sort.comparison.*;
+import com.wbx._01_sort.comparison._04_InsertionSort1;
+import com.wbx.tools.Asserts;
 import com.wbx.tools.Integers;
 
 import java.util.Arrays;
@@ -12,16 +13,20 @@ public class Main {
 		Integer[] array = Integers.random(10000, 1, 20000);
 		
 		testSorts(array, 
-				new _01_BubbleSort1(),
+				/*new _01_BubbleSort1(),
 				new _01_BubbleSort2(),
 				new _02_SelectionSort(),
 				new _03_HeapSort(),
-				new _01_BubbleSort3());
+				new _01_BubbleSort3(),*/
+				new _04_InsertionSort1());
 	}
 	
 	static void testSorts(Integer[] array, Sort... sorts) {
+
 		for (Sort sort : sorts) {
-			sort.sort(Integers.copy(array));
+			Integer[] newArray = Integers.copy(array);
+			sort.sort(newArray);
+			Asserts.test(Integers.isAscOrder(newArray));
 		}
 		
 		Arrays.sort(sorts);
@@ -30,7 +35,10 @@ public class Main {
 			System.out.println(sort);
 		}
 	}
-	
+
+
+
+
 	static void selectionSort(Integer[] array) {
 		for (int end = array.length - 1; end > 0; end--) {
 			int maxIndex = 0;

@@ -7,7 +7,7 @@ import com.wbx._01_sort.Sort;
  * @Date：2019-09-24 21:13
  * @author：wbx
  */
-public class _04_InsertionSort1<T extends Comparable> extends Sort<T> {
+public class _04_InsertionSort2<T extends Comparable> extends Sort<T> {
 
 
     @Override
@@ -17,7 +17,7 @@ public class _04_InsertionSort1<T extends Comparable> extends Sort<T> {
 
             for (int end = begin; end > 0; end--) {
                 if (cmp(array[end], array[end - 1]) < 0) {
-                    //通过交换元素的方式完成排序
+                    //通过移位来完成排序,可以减少交换次数
                     swap(end, end - 1);
                 }
             }
