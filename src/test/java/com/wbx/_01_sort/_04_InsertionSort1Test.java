@@ -20,6 +20,8 @@ public class _04_InsertionSort1Test {
         Integer[] array = Integers.random(10, 1, 200);
         new _04_InsertionSort1().sort(array);
         System.out.println("array = " + Arrays.toString(array));
+
+
         Assert.assertTrue(Integers.isAscOrder(array));
     }
 }

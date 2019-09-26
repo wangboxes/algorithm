@@ -86,7 +86,7 @@ public abstract class Sort<T extends Comparable> implements Comparable<Sort<T>> 
 		return "【" + getClass().getSimpleName() + "】\n"
 				+ stableStr + " \t"
 				+ timeStr + " \t"
-				+ compareCountStr + "\t "
+				+ compareCountStr + " \t "
 				+ swapCountStr + "\n"
 				+ "------------------------------------------------------------------";
 
