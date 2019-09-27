@@ -1,7 +1,6 @@
 package com.wbx._01_sort;
 
 import com.wbx._01_sort.comparison.*;
-import com.wbx.tools.Asserts;
 import com.wbx.tools.Integers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class SortPerformanceTest {
 
 	@Test
 	public void testSortPerformance() {
-		Integer[] array = Integers.random(10000, 1, 20000);
+		Integer[] array = Integers.random(20000, 1, 20000);
 		
 		testSorts(array, 
 				new _01_BubbleSort1(),
@@ -26,7 +25,8 @@ public class SortPerformanceTest {
 				new _02_SelectionSort(),
 				new _03_HeapSort(),
 				new _01_BubbleSort3(),
-				new _04_InsertionSort1());
+				new _04_InsertionSort1(),
+				new _04_InsertionSort2());
 	}
 	
 	static void testSorts(Integer[] array, Sort... sorts) {

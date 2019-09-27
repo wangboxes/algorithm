@@ -10,6 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author：wbx
  */
 @RunWith(Suite.class)
-@SuiteClasses({_04_InsertionSort1Test.class, SortPerformanceTest.class})
+@SuiteClasses({_04_InsertionSort1Test.class,
+        _04_InsertionSort2Test.class,
+        SortPerformanceTest.class})
 public class SortAllTests {
 }
