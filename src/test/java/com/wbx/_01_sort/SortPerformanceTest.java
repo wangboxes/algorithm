@@ -17,17 +17,22 @@ public class SortPerformanceTest {
 
 	@Test
 	public void testSortPerformance() {
-		Integer[] array = Integers.random(10000, 1, 20000);
+		Integer[] array = Integers.random(20000, 1, 20000);
 		
 		testSorts(array, 
 				new _01_BubbleSort1(),
 				new _01_BubbleSort2(),
-				new _02_SelectionSort(),
-				new _03_HeapSort(),
 				new _01_BubbleSort3(),
+
+				new _02_SelectionSort(),
+
+				new _03_HeapSort(),
+
 				new _04_InsertionSort1(),
 				new _04_InsertionSort2(),
-				new _04_InsertionSort3());
+				new _04_InsertionSort3(),
+
+				new _06_QuickSort());
 	}
 	
 	static void testSorts(Integer[] array, Sort... sorts) {

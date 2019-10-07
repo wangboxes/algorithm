@@ -20,6 +20,7 @@ public class _06_QuickSortTest {
         Integer[] array = Integers.random(100, 1, 200);
         Sort sort = new _06_QuickSort();
         sort.sort(array);
+
         System.out.println("array = " + Arrays.toString(array));
         System.out.println(sort);
 
