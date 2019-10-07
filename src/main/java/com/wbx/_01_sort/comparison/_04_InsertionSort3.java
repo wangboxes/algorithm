@@ -13,22 +13,6 @@ import com.wbx._01_sort.Sort;
  */
 public class _04_InsertionSort3<T extends Comparable> extends Sort<T> {
 
-
-/*    protected void sort() {
-        for (int begin = 1; begin < array.length; begin++) {
-            T v = array[begin];
-            int insertIndex = search(begin);
-            // 将 [insertIndex, begin) 范围内的元素往右边挪动一个单位
-//			for (int i = begin - 1; i >= insertIndex; i--) {
-//
-//			}
-            for (int i = begin; i > insertIndex; i--) {
-                array[i] = array[i - 1];
-            }
-            array[insertIndex] = v;
-        }
-    }*/
-
     @Override
     protected void sort() {
         for (int begin = 1; begin < array.length; begin++) {
@@ -71,5 +55,21 @@ public class _04_InsertionSort3<T extends Comparable> extends Sort<T> {
         }
         return begin;
     }
+
+
+    /*    protected void sort() {
+        for (int begin = 1; begin < array.length; begin++) {
+            T v = array[begin];
+            int insertIndex = search(begin);
+            // 将 [insertIndex, begin) 范围内的元素往右边挪动一个单位
+//			for (int i = begin - 1; i >= insertIndex; i--) {
+//
+//			}
+            for (int i = begin; i > insertIndex; i--) {
+                array[i] = array[i - 1];
+            }
+            array[insertIndex] = v;
+        }
+    }*/
 
 }
