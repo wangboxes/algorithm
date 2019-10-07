@@ -3,11 +3,11 @@ package com.wbx._01_sort.comparison;
 import com.wbx._01_sort.Sort;
 
 /**
- * @describe： 插入排序--优化1
+ * @describe：
  * @Date：2019-09-24 21:13
  * @author：wbx
  *
- * 思路是将【交换】 转为【挪动】
+ * 优化1 :思路是将【交换】 转为【挪动】
  * ① 先将待插入的元素备份
  * ② 头部有序数据中比待插入元素大的，都朝尾部方向挪动1个位置
  * ③ 将待插入元素放到最终的合适位置
@@ -16,6 +16,21 @@ public class _04_InsertionSort2<T extends Comparable> extends Sort<T> {
 
 
     @Override
+    protected void sort() {
+        for (int begin = 1; begin < array.length; begin++) {
+            int cur = begin;
+            //① 先将待插入的元素备份
+            T v = array[cur];
+            while (cur > 0 && cmp(v, array[cur - 1]) < 0) {
+                //通过移位来完成排序,可以减少交换次数
+                array[cur] = array[cur - 1];
+                cur--;
+            }
+            array[cur] = v;
+        }
+    }
+
+    /*@Override
     protected void sort() {
 
         for (int begin = 1; begin < array.length; begin++) {
@@ -32,20 +47,7 @@ public class _04_InsertionSort2<T extends Comparable> extends Sort<T> {
             array[insertIndex] = cur;
 
         }
-    }
-
-
-    /*@Override
-    protected void sort() {
-        for (int begin = 1; begin < array.length; begin++) {
-            int cur = begin;
-            T v = array[cur];
-            while (cur > 0 && cmp(v, array[cur - 1]) < 0) {
-                array[cur] = array[cur - 1];
-                cur--;
-            }
-            array[cur] = v;
-        }
     }*/
+
 
 }
