@@ -34,7 +34,9 @@ public class SortPerformanceTest {
 
 				new _05_MergeSort(),
 
-				new _06_QuickSort());
+				new _06_QuickSort(),
+
+				new _07_ShellSort());
 	}
 	
 	static void testSorts(Integer[] array, Sort... sorts) {

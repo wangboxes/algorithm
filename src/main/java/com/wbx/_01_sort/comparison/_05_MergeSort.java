@@ -17,6 +17,7 @@ import com.wbx._01_sort.Sort;
 @SuppressWarnings("unchecked")
 public class _05_MergeSort<T extends Comparable> extends Sort<T> {
 
+    //额外的存储空间,所以不是原地排序算法
     private T[] leftArray;
 
     @Override
@@ -49,10 +50,10 @@ public class _05_MergeSort<T extends Comparable> extends Sort<T> {
         //左边数组(基于leftArray), li-->left index  le-->left end
         int li = 0, le = mid - begin;
 
-        //右边数组(基于array的右半边)
+        //右边数组(基于array的右半边), lri-->right index  re-->right end
         int ri = mid, re = end;
 
-        //array数组的索引
+        //array数组的索引(array index)
         int ai = begin;
 
         // 备份左边数组
@@ -62,7 +63,7 @@ public class _05_MergeSort<T extends Comparable> extends Sort<T> {
 
         // 如果左边还没有结束
         while (li < le) {
-            //如果右边数组先结束,左边数据的元素还要依次拷贝到右边数组;如果左边数据先结束,直接结束.
+            //如果右边数组先结束,左边数据的元素还要依次拷贝到右边数组; 如果左边数据先结束,直接结束.
             //注意:如果cmp位置改为 <= 会失去稳定性
             if (ri < re && cmp(array[ri], leftArray[li]) < 0) {
                 //拷贝右边数组到array
