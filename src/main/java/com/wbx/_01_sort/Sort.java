@@ -1,6 +1,7 @@
 package com.wbx._01_sort;
 
 import com.wbx._01_sort.comparison._07_ShellSort;
+import com.wbx._01_sort.notComparison._08_CountingSort1;
 import com.wbx.tools.Student;
 
 import java.text.DecimalFormat;
@@ -109,6 +110,11 @@ public abstract class Sort<T extends Comparable> implements Comparable<Sort<T>> 
 			//希尔排序是非稳定排序,因为这个代码测出来的结果对希尔排序不确定,所以这里明确返回false
 			return false;
 		}
+
+		if (this instanceof _08_CountingSort1) {
+			return false;
+		}
+
 		Student[] students = new Student[20];
 		for (int i = 0; i < students.length; i++) {
 			students[i] = new Student(i * 10, 10);
