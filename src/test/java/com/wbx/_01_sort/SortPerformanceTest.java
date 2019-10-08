@@ -32,6 +32,8 @@ public class SortPerformanceTest {
 				new _04_InsertionSort2(),
 				new _04_InsertionSort3(),
 
+				new _05_MergeSort(),
+
 				new _06_QuickSort());
 	}
 	
