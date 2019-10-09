@@ -2,6 +2,7 @@ package com.wbx._01_sort;
 
 import com.wbx._01_sort.comparison.*;
 import com.wbx._01_sort.notComparison._08_CountingSort1;
+import com.wbx._01_sort.notComparison._08_CountingSort2;
 import com.wbx.tools.Integers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,7 +40,8 @@ public class SortPerformanceTest {
 
 				new _07_ShellSort(),
 
-				new _08_CountingSort1());
+				new _08_CountingSort1(),
+				new _08_CountingSort2());
 	}
 	
 	static void testSorts(Integer[] array, Sort... sorts) {

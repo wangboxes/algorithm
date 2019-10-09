@@ -46,4 +46,11 @@ public class _08_CountingSort1 extends Sort<Integer> {
         }
 
     }
+
+    /**
+     * ◼ 这个版本的实现存在以下问题:
+     * 1.无法对负整数进行排序
+     * 2.极其浪费内存空间
+     * 3.是个不稳定的排序
+     */
 }
