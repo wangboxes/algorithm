@@ -13,15 +13,18 @@ public class UnionFindTest {
 
     static final int count = 100000;
 
+    /**
+     * 性能对比测试
+     */
     @Test
-    public void test() {
+    public void testUnionFindPerformance() {
         testTime(new _01_UnionFind_QF(count));
 		testTime(new _02_UnionFind_QU(count));
         testTime(new _03_UnionFind_QU_Size(count));
         testTime(new _04_UnionFind_QU_Rank(count));
-//        testTime(new UnionFind_QU_R_PC(count));
-//        testTime(new UnionFind_QU_R_PS(count));
-//        testTime(new UnionFind_QU_R_PH(count));
+        testTime(new _05_UnionFind_QU_Rank_PC(count));
+        testTime(new _06_UnionFind_QU_Rank_PS(count));
+        testTime(new _07_UnionFind_QU_Rank_PH(count));
     }
 
     private void testTime(UnionFind uf) {

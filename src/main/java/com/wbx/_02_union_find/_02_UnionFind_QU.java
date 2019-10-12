@@ -35,7 +35,7 @@ public class _02_UnionFind_QU extends UnionFind{
     public int find(int v) {
         rangeCheck(v);
 
-        //learn 向上找根节点
+        //TODO learn: 向上找根节点
         while (v != parents[v]) {
             v = parents[v];
         }
