@@ -127,12 +127,12 @@ public class Integers {
 		return Arrays.copyOf(array, array.length);
 	}
 	
-	public static boolean isAscOrder(Integer[] array) {
+	public static <T extends Comparable> boolean isAscOrder(T[] array) {
 		if (array == null || array.length == 0) {
 			return false;
 		}
 		for (int i = 1; i < array.length; i++) {
-			if (array[i - 1] > array[i]) {
+			if (array[i - 1].compareTo(array[i]) > 0) {
 				return false;
 			}
 		}
