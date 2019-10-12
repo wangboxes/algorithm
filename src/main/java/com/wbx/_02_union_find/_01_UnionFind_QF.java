@@ -16,14 +16,14 @@ public class _01_UnionFind_QF extends UnionFind{
      * 时间复杂度： O(n)
      */
     public void union(int v1, int v2) {
-        int p1 = find(v1);
-        int p2 = find(v2);
+        int root1 = find(v1);
+        int root2 = find(v2);
 
-        if (p1 != p2) {
+        if (root1 != root2) {
             for (int i = 0; i < parents.length; i++) {
-                if (parents[i] == p1){
+                if (parents[i] == root1){
                     //Quick Find 的 union(v1, v2)：让 v1 所在集合的所有元素都指向 v2 的根节点
-                    parents[i] = p2;
+                    parents[i] = root2;
                 }
             }
         }
