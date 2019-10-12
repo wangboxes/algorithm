@@ -17,6 +17,10 @@ import java.util.List;
  * ④ 将所有非空桶的元素合并成有序序列
  *
  * ◼ 元素在桶中的索引 : 元素值 * 元素数量
+ *
+ * 空间复杂度： O(n + m)， m 是桶的数量
+ * 时间复杂度：O(n + k), k 为 n ∗ logn − n ∗ logm
+ * 属于稳定排序
  */
 public class _10_BucketSort extends Sort<Double> {
 
