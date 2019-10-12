@@ -22,7 +22,7 @@ public class _08_CountingSort1 extends Sort<Integer> {
 
     @Override
     protected void sort() {
-        //查找最大值
+        //查找最大值 O(n)
         int max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -30,13 +30,13 @@ public class _08_CountingSort1 extends Sort<Integer> {
             }
         }
 
-        //统计元素出现的次数
+        //统计元素出现的次数 O(n)
         int[] counts = new int[max + 1];
         for (int i = 0; i < array.length; i++) {
             counts[array[i]]++;
         }
 
-        //按顺序赋值
+        //按顺序赋值 O(k)
         int index = 0;
         for (int i = 0; i < counts.length; i++) {
             while (counts[i]-- > 0) {

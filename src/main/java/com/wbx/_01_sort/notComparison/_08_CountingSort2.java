@@ -11,6 +11,11 @@ import com.wbx._01_sort.Sort;
  * ◼假设array中的最小值是 min
  * ◼array中的元素 k 对应的 counts 索引是 k – min
  * ◼array中的元素 k 在有序序列中的索引 : counts[k – min] – p , p 代表着是倒数第几个 k
+ *
+ * ◼ 最好、最坏、平均时间复杂度： O(n + k)
+ * ◼ 空间复杂度： O(n + k)
+ * ◼ k 是整数的取值范围
+ * ◼ 属于稳定排序
  */
 public class _08_CountingSort2 extends Sort<Integer> {
 

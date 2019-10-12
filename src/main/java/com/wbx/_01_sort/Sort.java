@@ -3,6 +3,8 @@ package com.wbx._01_sort;
 import com.wbx._01_sort.comparison._07_ShellSort;
 import com.wbx._01_sort.notComparison._08_CountingSort1;
 import com.wbx._01_sort.notComparison._08_CountingSort2;
+import com.wbx._01_sort.notComparison._09_RadixSort1;
+import com.wbx._01_sort.notComparison._09_RadixSort2;
 import com.wbx.tools.Student;
 
 import java.text.DecimalFormat;
@@ -117,6 +119,10 @@ public abstract class Sort<T extends Comparable> implements Comparable<Sort<T>> 
 		}
 
 		if (this instanceof _08_CountingSort2) {
+			return true;
+		}
+
+		if (this instanceof _09_RadixSort1 || this instanceof _09_RadixSort2) {
 			return true;
 		}
 
