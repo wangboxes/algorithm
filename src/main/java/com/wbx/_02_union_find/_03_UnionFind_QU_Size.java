@@ -13,6 +13,10 @@ package com.wbx._02_union_find;
  */
 public class _03_UnionFind_QU_Size extends _02_UnionFind_QU {
 
+
+    /**
+     * 根节点存储该树的元素数量
+     */
     private int[] sizes;
 
     public _03_UnionFind_QU_Size(int capacity) {

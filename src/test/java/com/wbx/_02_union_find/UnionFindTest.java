@@ -18,7 +18,7 @@ public class UnionFindTest {
         testTime(new _01_UnionFind_QF(count));
 		testTime(new _02_UnionFind_QU(count));
         testTime(new _03_UnionFind_QU_Size(count));
-//        testTime(new UnionFind_QU_R(count));
+        testTime(new _04_UnionFind_QU_Rank(count));
 //        testTime(new UnionFind_QU_R_PC(count));
 //        testTime(new UnionFind_QU_R_PS(count));
 //        testTime(new UnionFind_QU_R_PH(count));
