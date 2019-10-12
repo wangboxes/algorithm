@@ -5,7 +5,7 @@ package com.wbx._02_union_find;
  * @Date：2019/10/12 11:16
  * @author：wbx
  */
-public class _02_UnionFind_QU extends UnionFind{
+public class _02_UnionFind_QU extends UnionFind {
 
     public _02_UnionFind_QU(int capacity) {
         super(capacity);
@@ -16,12 +16,13 @@ public class _02_UnionFind_QU extends UnionFind{
      *
      * 时间复杂度： O(logn). 查找导致的
      */
+    @Override
     public void union(int v1, int v2) {
-        int p1 = find(v1);
-        int p2 = find(v2);
+        int root1 = find(v1);
+        int root2 = find(v2);
         //Quick Union 的 union(v1, v2)：让 v1 的根节点指向 v2 的根节点(只改变根节点的指向)
-        if (p1 != p2) {
-            parents[p1] = p2;
+        if (root1 != root2) {
+            parents[root1] = root2;
         }
 
     }
@@ -32,6 +33,7 @@ public class _02_UnionFind_QU extends UnionFind{
      *
      * 时间复杂度： O(logn).
      */
+    @Override
     public int find(int v) {
         rangeCheck(v);
 

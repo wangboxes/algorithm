@@ -31,6 +31,7 @@ public class _03_UnionFind_QU_Size extends _02_UnionFind_QU {
     /**
      * 元素少的树 嫁接到 元素多的树
      */
+    @Override
     public void union(int v1, int v2) {
         int root1 = find(v1);
         int root2 = find(v2);

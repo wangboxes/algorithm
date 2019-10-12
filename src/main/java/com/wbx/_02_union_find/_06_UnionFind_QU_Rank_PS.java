@@ -18,6 +18,7 @@ public class _06_UnionFind_QU_Rank_PS extends _04_UnionFind_QU_Rank {
     /**
      * 路径分裂：使路径上的每个节点都指向其祖父节点（parent的parent）
      */
+    @Override
     public int find(int v) {
         rangeCheck(v);
 

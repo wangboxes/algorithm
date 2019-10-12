@@ -27,6 +27,7 @@ public class _04_UnionFind_QU_Rank extends _02_UnionFind_QU {
     /**
      * 矮的树 嫁接到 高的树
      */
+    @Override
     public void union(int v1, int v2) {
         int root1 = find(v1);
         int root2 = find(v2);

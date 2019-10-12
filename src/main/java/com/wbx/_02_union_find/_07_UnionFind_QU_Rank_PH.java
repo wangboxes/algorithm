@@ -14,6 +14,7 @@ public class _07_UnionFind_QU_Rank_PH extends _04_UnionFind_QU_Rank {
     /**
      * 路径减半：使路径上每隔一个节点就指向其祖父节点（parent的parent）
      */
+    @Override
     public int find(int v) {
         rangeCheck(v);
 
