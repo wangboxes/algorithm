@@ -28,7 +28,7 @@ public class _02_UnionFind_QU extends UnionFind {
     }
 
 
-    /*
+    /**
      * 通过parent链条不断地向上找，直到找到根节点
      *
      * 时间复杂度： O(logn).

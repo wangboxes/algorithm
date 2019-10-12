@@ -27,7 +27,7 @@ public class _07_UnionFind_QU_Rank_PH extends _04_UnionFind_QU_Rank {
     }
 
 
-    /**
+    /*
      * 总结:
      * 使用路径压缩、分裂或减半 + 基于rank或者size的优化
      * ✓ 可以确保每个操作的均摊时间复杂度为 O(α(n))， α(n) < 5

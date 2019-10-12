@@ -32,7 +32,7 @@ public class _01_UnionFind_QF extends UnionFind {
     }
 
 
-    /*
+    /**
      * 父节点就是根节点
      *
      * 时间复杂度： O(1)
