@@ -103,6 +103,15 @@ public interface Graph<V, E> {
      */
     List<V> topologicalSort();
 
+
+    /**
+     * 最小生成树（Minimum Spanning Tree，简称MST）
+     *
+     * 也称为最小权重生成树（Minimum Weight Spanning Tree）、最小支撑树
+     * 是所有生成树中，总权值最小的那棵
+     * 适用于有权的连通图（无向）
+     * @return
+     */
     Set<EdgeInfo<V, E>> mst();
 
 
