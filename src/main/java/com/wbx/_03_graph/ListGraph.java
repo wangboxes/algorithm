@@ -110,8 +110,30 @@ public class ListGraph<V, E> implements Graph<V, E> {
             edges.remove(edge);
         }
 
+        //TODO 顶点不用删?
 
     }
+
+    @Override
+    public void bfs(V begin, VertexVisitor<V> visitor) {
+
+    }
+
+    @Override
+    public void dfs(V begin, VertexVisitor<V> visitor) {
+
+    }
+
+    @Override
+    public List<V> topologicalSort() {
+        return null;
+    }
+
+    @Override
+    public Set<EdgeInfo<V, E>> mst() {
+        return null;
+    }
+
 
     /**
      * 顶点
@@ -191,6 +213,22 @@ public class ListGraph<V, E> implements Graph<V, E> {
         public String toString() {
             return "Edge{from=" + from + ", to=" + to + ", weight=" + weight + '}';
         }
+    }
+
+    public void print() {
+        System.out.println("[顶点]-------------------");
+        vertices.forEach((V v, Vertex<V, E> vertex) -> {
+            System.out.println(v);
+            System.out.println("out-----------");
+            System.out.println(vertex.outEdges);
+            System.out.println("in-----------");
+            System.out.println(vertex.inEdges);
+        });
+
+        System.out.println("[边]-------------------");
+        edges.forEach((Edge<V, E> edge) -> {
+            System.out.println(edge);
+        });
     }
 
 }
