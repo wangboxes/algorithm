@@ -151,7 +151,25 @@ public class ListGraph<V, E> implements Graph<V, E> {
 
 
     @Override
-    public void dfs(V begin, VertexVisitor<V> visitor) {
+    public void dfsWithRecursion(V begin, VertexVisitor<V> visitor) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null || visitor == null) {
+            return;
+        }
+
+        dfsWithRecursion(beginVertex, new HashSet<>());
+    }
+
+    private void dfsWithRecursion(Vertex<V, E> vertex, HashSet<Vertex<V, E>> visitedVertices) {
+        System.out.println(vertex.value);
+		visitedVertices.add(vertex);
+
+        for (Edge<V, E> outEdge : vertex.outEdges) {
+            if (!visitedVertices.contains(outEdge.to)) {
+                dfsWithRecursion(outEdge.to, visitedVertices);
+            }
+        }
+
 
     }
 

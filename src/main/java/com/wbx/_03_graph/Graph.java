@@ -74,13 +74,14 @@ public interface Graph<V, E> {
     void bfs(V begin, VertexVisitor<V> visitor);
 
     /**
+     * 递归方式
      * 深度优先搜索（Depth First Search， DFS）,又称为宽度优先搜索、横向优先搜索（有向图、无向图都适用）
      *
      * 二叉树前序遍历就是一种深度优先搜索
      * @param begin 搜索的起始顶点
      * @param visitor 对遍历到的每个顶点的访问方式
      */
-    void dfs(V begin, VertexVisitor<V> visitor);
+    void dfsWithRecursion(V begin, VertexVisitor<V> visitor);
 
 
     /*
