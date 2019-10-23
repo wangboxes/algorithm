@@ -9,27 +9,20 @@ import org.junit.Test;
  */
 public class ListGraphTest {
 
-/*    static void testTopo() {
-        Graph<Object, Double> graph = directedGraph(Data.TOPO);
-        List<Object> list = graph.topologicalSort();
-        System.out.println(list);
-    }
+    /*    static void testTopo() {
+            Graph<Object, Double> graph = directedGraph(Data.TOPO);
+            List<Object> list = graph.topologicalSort();
+            System.out.println(list);
+        }
 
-    static void testDfs() {
-        Graph<Object, Double> graph = directedGraph(Data.DFS_02);
-        graph.dfs("a", (Object v) -> {
-            System.out.println(v);
-            return false;
-        });
-    }
-
-    static void testBfs() {
-        Graph<Object, Double> graph = directedGraph(Data.BFS_02);
-        graph.bfs(0, (Object v) -> {
-            System.out.println(v);
-            return false;
-        });
-    }*/
+        static void testDfs() {
+            Graph<Object, Double> graph = directedGraph(Data.DFS_02);
+            graph.dfs("a", (Object v) -> {
+                System.out.println(v);
+                return false;
+            });
+        }
+    */
 
     @Test
     public void testAddAndRemove() {
@@ -60,50 +53,51 @@ public class ListGraphTest {
         graph.addEdge("V0", "V4", 6);
 
 //		graph.removeEdge("V0", "V4");
-		graph.removeVertex("V0");
+        graph.removeVertex("V0");
 
-		graph.print();
-
+        graph.print();
 
     }
 
-    /**
-     * 有向图
-     */
-    private static Graph<Object, Double> directedGraph(Object[][] data) {
-        Graph<Object, Double> graph = new ListGraph<>();
-        for (Object[] edge : data) {
-            if (edge.length == 1) {
-                graph.addVertex(edge[0]);
-            } else if (edge.length == 2) {
-                graph.addEdge(edge[0], edge[1]);
-            } else if (edge.length == 3) {
-                double weight = Double.parseDouble(edge[2].toString());
-                graph.addEdge(edge[0], edge[1], weight);
-            }
-        }
-        return graph;
+    @Test
+    public void testBFS_01() {
+        Graph<Object, Double> graph = Data.undirectedGraph(Data.BFS_01);
+        graph.bfs("A", (Object v) -> {
+            System.out.println(v);
+            return false;
+        });
     }
 
-    /**
-     * 无向图
-     * @param data
-     * @return
-     */
-    private static Graph<Object, Double> undirectedGraph(Object[][] data) {
-        Graph<Object, Double> graph = new ListGraph<>();
-        for (Object[] edge : data) {
-            if (edge.length == 1) {
-                graph.addVertex(edge[0]);
-            } else if (edge.length == 2) {
-                graph.addEdge(edge[0], edge[1]);
-                graph.addEdge(edge[1], edge[0]);
-            } else if (edge.length == 3) {
-                double weight = Double.parseDouble(edge[2].toString());
-                graph.addEdge(edge[0], edge[1], weight);
-                graph.addEdge(edge[1], edge[0], weight);
-            }
-        }
-        return graph;
+    @Test
+    public void testBFS_02() {
+        Graph<Object, Double> graph = Data.directedGraph(Data.BFS_02);
+        graph.bfs(0, (Object v) -> {
+            System.out.println(v);
+            return false;
+        });
     }
+    @Test
+    public void testBFS_03() {
+        Graph<Object, Double> graph = Data.undirectedGraph(Data.BFS_03);
+        graph.bfs(0, (Object v) -> {
+            System.out.println(v);
+            return false;
+        });
+    }
+
+    @Test
+    public void testBFS_04() {
+        Graph<Object, Double> graph = Data.directedGraph(Data.BFS_04);
+        graph.bfs(5, (Object v) -> {
+            System.out.println(v);
+            return false;
+        });
+    }
+
+
+
+
+
+
+
 }

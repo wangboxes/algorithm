@@ -39,12 +39,14 @@ public class ListGraph<V, E> implements Graph<V, E> {
 
     @Override
     public void addEdge(V from, V to, E weight) {
+        //起始顶点
         Vertex<V, E> fromVertex = vertices.get(from);
         if (fromVertex == null) {
             fromVertex = new Vertex<>(from);
             vertices.put(from, fromVertex);
         }
 
+        //终止顶点
         Vertex<V, E> toVertex = vertices.get(to);
         if (toVertex == null) {
             toVertex = new Vertex<>(to);
@@ -88,36 +90,65 @@ public class ListGraph<V, E> implements Graph<V, E> {
 
     @Override
     public void removeVertex(V v) {
-        Vertex<V, E> vertex = vertices.get(v);
+        //删除顶点
+        Vertex<V, E> vertex = vertices.remove(v);
         if (vertex == null) {
             return;
         }
 
+        //从被删除顶点的出度的边,找对应的终止顶点,删除终止顶点入度的边
         for (Iterator<Edge<V, E>> iterator = vertex.outEdges.iterator(); iterator.hasNext();) {
             Edge<V, E> edge = iterator.next();
 
+            //删除终止顶点入度的边
             edge.to.inEdges.remove(edge);
-            // 将当前遍历到的元素edge从集合vertex.outEdges中删掉
             iterator.remove();
             edges.remove(edge);
         }
 
+        //从被删除顶点的入度的边,找对应的起始顶点,删除起始顶点出度的边
         for (Iterator<Edge<V, E>> iterator = vertex.inEdges.iterator(); iterator.hasNext();) {
             Edge<V, E> edge = iterator.next();
+            //删除起始顶点出度的边
             edge.from.outEdges.remove(edge);
-            // 将当前遍历到的元素edge从集合vertex.inEdges中删掉
             iterator.remove();
             edges.remove(edge);
         }
-
-        //TODO 顶点不用删?
 
     }
 
     @Override
     public void bfs(V begin, VertexVisitor<V> visitor) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null || visitor == null) {
+            return;
+        }
+        //存储已经入队列的顶点,防止重复遍历
+        Set<Vertex<V,E>> enqueueVertices = new HashSet<>();
+        Queue<Vertex<V,E>> queue = new LinkedList<>();
+
+        queue.offer(beginVertex);
+        enqueueVertices.add(beginVertex);
+
+        //每次出队后,把出队顶点的出度边的终止顶点放入队列中
+        while (!queue.isEmpty()) {
+            Vertex<V,E> pollVertex = queue.poll();
+
+            if (visitor.visit(pollVertex.value)) {
+                return;
+            }
+
+            for (Edge<V, E> outEdge : pollVertex.outEdges) {
+                if (!enqueueVertices.contains(outEdge.to)) {
+                    queue.offer(outEdge.to);
+                    enqueueVertices.add(outEdge.to);
+                }
+            }
+        }
+
 
     }
+
 
     @Override
     public void dfs(V begin, VertexVisitor<V> visitor) {
