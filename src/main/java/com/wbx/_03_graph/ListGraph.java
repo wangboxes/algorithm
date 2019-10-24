@@ -1,5 +1,7 @@
 package com.wbx._03_graph;
 
+import com.wbx._02_union_find._08_GenericUnionFind;
+
 import java.util.*;
 
 /**
@@ -271,6 +273,8 @@ public class ListGraph<V, E> extends Graph<V, E> {
 
 
     /**
+     * 最小生成树-Prim实现
+     *
      * 切分定理
      * ◼ 切分（Cut）：把图中的节点分为两部分，称为一个切分
      * ◼ 下图有个切分 C = (S, T)， 顶点集S = {A, B, D}， 顶点集T = {C, E}
@@ -281,6 +285,8 @@ public class ListGraph<V, E> extends Graph<V, E> {
      * ◼ 假设 G = (V， E) 是有权的连通图（无向）， A 是 G 中最小生成树的边集
      *   算法从顶点S = { u0 }（u0 ∈ V）， 边A = { } 开始，重复执行下述操作，直到 S = V 为止
      * ✓ 找到切分 C = (S， V – S) 的最小横切边 (u0， v0) 并入集合 A，同时将 v0 并入集合 S
+     *
+     * 复杂度:O(ElogE)
      */
     @Override
     public Set<EdgeInfo<V, E>> mstWithPrim() {
@@ -319,13 +325,49 @@ public class ListGraph<V, E> extends Graph<V, E> {
 
 
     /**
+     * 最小生成树-Kruskal实现
+     *
+     * Kruskal算法 – 执行过程
      * ◼ 按照边的权重顺序（从小到大）将边加入生成树中，直到生成树中含有 V – 1 条边为止（V 是顶点数量）
      * 若加入该边会与生成树形成环，则不加入该边
      * 从第3条边开始，可能会与生成树形成环
+     *
+     * 复杂度:O(ElogE)
      */
     @Override
     public Set<EdgeInfo<V, E>> mstWithKruskal() {
-        return null;
+        //如果没有边的话就不用执行
+        int edgeSize = vertices.size() - 1;
+        if (edgeSize == -1) {
+            return null;
+        }
+
+        Set<EdgeInfo<V, E>> edgeInfos = new HashSet<>();
+
+        // 所有边都加入最小堆中--O(E)
+        MinHeap<Edge<V, E>> heap = new MinHeap<>(edges, edgeComparator);
+
+        //借助并查集来判断是否有环
+        _08_GenericUnionFind<Vertex<V, E>> uf = new _08_GenericUnionFind<>();
+        // O(V)
+        vertices.forEach((V v, Vertex<V, E> vertex) -> {
+            uf.makeSet(vertex);
+        });
+
+        // O(ElogE)
+        while (!heap.isEmpty() && edgeInfos.size() < edgeSize) { // E
+            Edge<V, E> minEdge = heap.remove(); // O(logE)
+
+            //如果两个顶点属于同一个并查集,那么不取这条边,因为会造成环
+            if (uf.isSame(minEdge.from, minEdge.to)) {
+                continue;
+            }
+
+            edgeInfos.add(minEdge.info());
+            uf.union(minEdge.from, minEdge.to);
+        }
+
+        return edgeInfos;
     }
 
 

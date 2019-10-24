@@ -208,10 +208,12 @@ public class Data {
     }
 
 	public static Graph.WeightManager<Double> weightManager = new Graph.WeightManager<Double>() {
+    	@Override
 		public int compare(Double w1, Double w2) {
 			return w1.compareTo(w2);
 		}
 
+		@Override
 		public Double add(Double w1, Double w2) {
 			return w1 + w2;
 		}

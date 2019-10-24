@@ -3,7 +3,6 @@ package com.wbx._03_graph;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @describe：
@@ -134,23 +133,23 @@ public class ListGraphTest {
 
 
     @Test
-    public void testMstWithPrim1() {
+    public void testMst1() {
         Graph<Object, Double> graph = Data.undirectedGraph(Data.MST_01);
-        Set<Graph.EdgeInfo<Object, Double>> infos = graph.mstWithPrim();
-        for (Graph.EdgeInfo<Object, Double> info : infos) {
-            System.out.println(info);
-        }
+        graph.mstWithPrim().forEach(System.out::println);
+        System.out.println("------------------------");
+        graph.mstWithKruskal().forEach(System.out::println);
+
+
+
     }
 
     @Test
-    public void testMstWithPrim2() {
+    public void testMst2() {
         Graph<Object, Double> graph = Data.undirectedGraph(Data.MST_02);
-        Set<Graph.EdgeInfo<Object, Double>> infos = graph.mstWithPrim();
-        for (Graph.EdgeInfo<Object, Double> info : infos) {
-            System.out.println(info);
-        }
+        graph.mstWithPrim().forEach(System.out::println);
+        System.out.println("------------------------");
+        graph.mstWithKruskal().forEach(System.out::println);
     }
-
 
 
 
