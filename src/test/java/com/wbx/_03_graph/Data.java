@@ -165,11 +165,12 @@ public class Data {
 			{1, 0, -2}
 	};
 
+
     /**
      * 有向图
      */
     public static Graph<Object, Double> directedGraph(Object[][] data) {
-        Graph<Object, Double> graph = new ListGraph<>();
+        Graph<Object, Double> graph = new ListGraph<>(weightManager);
         for (Object[] edge : data) {
             if (edge.length == 1) {
                 graph.addVertex(edge[0]);
@@ -190,7 +191,7 @@ public class Data {
      * @return
      */
     public static Graph<Object, Double> undirectedGraph(Object[][] data) {
-        Graph<Object, Double> graph = new ListGraph<>();
+        Graph<Object, Double> graph = new ListGraph<>(weightManager);
         for (Object[] edge : data) {
             if (edge.length == 1) {
                 graph.addVertex(edge[0]);
@@ -205,4 +206,14 @@ public class Data {
         }
         return graph;
     }
+
+	public static Graph.WeightManager<Double> weightManager = new Graph.WeightManager<Double>() {
+		public int compare(Double w1, Double w2) {
+			return w1.compareTo(w2);
+		}
+
+		public Double add(Double w1, Double w2) {
+			return w1 + w2;
+		}
+	};
 }

@@ -3,6 +3,7 @@ package com.wbx._03_graph;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @describe：
@@ -117,7 +118,7 @@ public class ListGraphTest {
 
 
     @Test
-    public void testTopologicalSort() {
+    public void testTopologicalSort1() {
         Graph<Object, Double> graph = Data.directedGraph(Data.TOPO);
         List<Object> list = graph.topologicalSort();
         System.out.println(list);
@@ -125,11 +126,30 @@ public class ListGraphTest {
 
     @Test
     public void testTopologicalSort2() {
+        //测试有环的情况
         Graph<Object, Double> graph = Data.directedGraph(Data.TOPO_LOOP);
         List<Object> list = graph.topologicalSort();
         System.out.println(list);
     }
 
+
+    @Test
+    public void testMstWithPrim1() {
+        Graph<Object, Double> graph = Data.undirectedGraph(Data.MST_01);
+        Set<Graph.EdgeInfo<Object, Double>> infos = graph.mstWithPrim();
+        for (Graph.EdgeInfo<Object, Double> info : infos) {
+            System.out.println(info);
+        }
+    }
+
+    @Test
+    public void testMstWithPrim2() {
+        Graph<Object, Double> graph = Data.undirectedGraph(Data.MST_02);
+        Set<Graph.EdgeInfo<Object, Double>> infos = graph.mstWithPrim();
+        for (Graph.EdgeInfo<Object, Double> info : infos) {
+            System.out.println(info);
+        }
+    }
 
 
 

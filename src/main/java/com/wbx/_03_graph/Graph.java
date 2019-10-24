@@ -13,38 +13,46 @@ import java.util.Set;
  * 顶点集V有穷且非空
  * 任意两个顶点之间都可以用边来表示它们之间的关系，边集E可以是空的
  */
-public interface Graph<V, E> {
+public abstract class Graph<V, E> {
+
+    protected WeightManager<E> weightManager;
+
+    public Graph() {}
+
+    public Graph(WeightManager<E> weightManager) {
+        this.weightManager = weightManager;
+    }
 
     /**
      * 顶点数
      * @return
      */
-    int verticesSize();
+    public abstract int verticesSize();
 
     /**
      * 边数
      * @return
      */
-    int edgesSize();
+    public abstract int edgesSize();
 
     /**
      * 添加顶点
      * @param v
      */
-    void addVertex(V v);
+    public abstract void addVertex(V v);
 
     /**
      * 删除顶点
      * @param v
      */
-    void removeVertex(V v);
+    public abstract void removeVertex(V v);
 
     /**
      * 添加边
      * @param from
      * @param to
      */
-    void addEdge(V from, V to);
+    public abstract void addEdge(V from, V to);
 
     /**
      * 添加带权值的边
@@ -52,14 +60,14 @@ public interface Graph<V, E> {
      * @param to
      * @param weight
      */
-    void addEdge(V from, V to, E weight);
+    public abstract void addEdge(V from, V to, E weight);
 
     /**
      * 删除边
      * @param from
      * @param to
      */
-    void removeEdge(V from, V to);
+    public abstract void removeEdge(V from, V to);
 
 
 
@@ -74,7 +82,7 @@ public interface Graph<V, E> {
      * @param begin 搜索的起始顶点
      * @param visitor 对遍历到的每个顶点的访问方式
      */
-    void bfs(V begin, VertexVisitor<V> visitor);
+    public abstract void bfs(V begin, VertexVisitor<V> visitor);
 
 
 
@@ -85,7 +93,7 @@ public interface Graph<V, E> {
      * 二叉树前序遍历就是一种深度优先搜索
      * @param begin 搜索的起始顶点
      */
-    void dfsWithRecursion(V begin);
+    public abstract void dfsWithRecursion(V begin);
 
 
     /**
@@ -93,7 +101,7 @@ public interface Graph<V, E> {
      * @param begin
      * @param visitor
      */
-    void dfsWithStack(V begin, VertexVisitor<V> visitor);
+    public abstract void dfsWithStack(V begin, VertexVisitor<V> visitor);
 
 
 
@@ -120,8 +128,12 @@ public interface Graph<V, E> {
      *
      * @return
      */
-    List<V> topologicalSort();
+    public abstract List<V> topologicalSort();
 
+    /*
+     * 生成树（Spanning Tree），也称为支撑树
+     * 连通图的极小连通子图，它含有图中全部的 n 个顶点，恰好只有 n – 1 条边
+     */
 
 
     /**
@@ -130,16 +142,25 @@ public interface Graph<V, E> {
      * 也称为最小权重生成树（Minimum Weight Spanning Tree）、最小支撑树
      * 是所有生成树中，总权值最小的那棵
      * 适用于有权的连通图（无向）
+     *
+     * 如果图的每一条边的权值都互不相同，那么最小生成树将只有一个，否则可能会有多个最小生成树
+     *
+     * ◼ 求最小生成树的2个经典算法
+     * Prim（普里姆算法）
+     * Kruskal（克鲁斯克尔算法）
      * @return
      */
-    Set<EdgeInfo<V, E>> mst();
+    public abstract Set<EdgeInfo<V, E>> mstWithPrim();
+
+
+    public abstract Set<EdgeInfo<V, E>> mstWithKruskal();
 
 
     /**
      * 用于表达遍历的时候对元素的访问方式
      * @param <V>
      */
-    interface VertexVisitor<V> {
+    public interface VertexVisitor<V> {
 
         /**
          * 自定义的访问节点的方式
@@ -149,15 +170,55 @@ public interface Graph<V, E> {
         boolean visit(V v);
     }
 
+    public interface WeightManager<E> {
+        /**
+         * 用来比较权值大小
+         * @param w1
+         * @param w2
+         * @return
+         */
+        int compare(E w1, E w2);
 
-    class EdgeInfo<V, E> {
-        V from;
-        V to;
-        E weight;
+
+        /**
+         * 用来相加权值
+         * @param w1
+         * @param w2
+         * @return
+         */
+        E add(E w1, E w2);
+    }
+
+    public static class EdgeInfo<V, E> {
+        private V from;
+        private V to;
+        private E weight;
         public EdgeInfo(V from, V to, E weight) {
             this.from = from;
             this.to = to;
             this.weight = weight;
+        }
+        public V getFrom() {
+            return from;
+        }
+        public void setFrom(V from) {
+            this.from = from;
+        }
+        public V getTo() {
+            return to;
+        }
+        public void setTo(V to) {
+            this.to = to;
+        }
+        public E getWeight() {
+            return weight;
+        }
+        public void setWeight(E weight) {
+            this.weight = weight;
+        }
+        @Override
+        public String toString() {
+            return "EdgeInfo [from=" + from + ", to=" + to + ", weight=" + weight + "]";
         }
     }
 

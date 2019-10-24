@@ -8,12 +8,21 @@ import java.util.*;
  * @author：wbx
  */
 @SuppressWarnings("unchecked")
-public class ListGraph<V, E> implements Graph<V, E> {
+public class ListGraph<V, E> extends Graph<V, E> {
 
     private Map<V, Vertex<V, E>> vertices = new HashMap<>();
 
     private Set<Edge<V, E>> edges = new HashSet<>();
 
+    private Comparator<Edge<V, E>> edgeComparator = (Edge<V, E> e1, Edge<V, E> e2) -> {
+        return weightManager.compare(e1.weight, e2.weight);
+    };
+
+    public ListGraph() {}
+
+    public ListGraph(WeightManager<E> weightManager) {
+        super(weightManager);
+    }
 
     @Override
     public int verticesSize() {
@@ -260,10 +269,66 @@ public class ListGraph<V, E> implements Graph<V, E> {
         return list;
     }
 
+
+    /**
+     * 切分定理
+     * ◼ 切分（Cut）：把图中的节点分为两部分，称为一个切分
+     * ◼ 下图有个切分 C = (S, T)， 顶点集S = {A, B, D}， 顶点集T = {C, E}
+     * ◼ 横切边（Crossing Edge）：如果一个边的两个顶点，分别属于切分的两部分S和T，这个边称为横切边
+     * ◼ 切分定理：给定任意切分，横切边中权值最小的边必然属于最小生成树
+     *
+     * Prim算法 – 执行过程:
+     * ◼ 假设 G = (V， E) 是有权的连通图（无向）， A 是 G 中最小生成树的边集
+     *   算法从顶点S = { u0 }（u0 ∈ V）， 边A = { } 开始，重复执行下述操作，直到 S = V 为止
+     * ✓ 找到切分 C = (S， V – S) 的最小横切边 (u0， v0) 并入集合 A，同时将 v0 并入集合 S
+     */
     @Override
-    public Set<EdgeInfo<V, E>> mst() {
+    public Set<EdgeInfo<V, E>> mstWithPrim() {
+        //随机取出一个顶点
+        Iterator<Vertex<V, E>> it = vertices.values().iterator();
+        if (!it.hasNext()) {
+            return null;
+        }
+        Vertex<V, E> vertex = it.next();
+
+        //边集(存放组成最小生成树的边集信息)
+        Set<EdgeInfo<V, E>> edgeInfos = new HashSet<>();
+        //顶点集(存放已经确定的顶点)
+        Set<Vertex<V, E>> addedVertices = new HashSet<>();
+
+        addedVertices.add(vertex);
+
+        //使用最小堆方便获取最小边
+        MinHeap<Edge<V, E>> heap = new MinHeap<>(vertex.outEdges, edgeComparator);
+
+        int verticesSize = vertices.size();
+        while (!heap.isEmpty() && addedVertices.size() < verticesSize) {
+            Edge<V, E> minEdge = heap.remove();
+            //去除重复的边
+            if (addedVertices.contains(minEdge.to)) {
+                continue;
+            }
+            addedVertices.add(minEdge.to);
+            edgeInfos.add(minEdge.info());
+            //这里会有重复的边添加进去
+            heap.addAll(minEdge.to.outEdges);
+        }
+
+        return edgeInfos;
+    }
+
+
+    /**
+     * ◼ 按照边的权重顺序（从小到大）将边加入生成树中，直到生成树中含有 V – 1 条边为止（V 是顶点数量）
+     * 若加入该边会与生成树形成环，则不加入该边
+     * 从第3条边开始，可能会与生成树形成环
+     */
+    @Override
+    public Set<EdgeInfo<V, E>> mstWithKruskal() {
         return null;
     }
+
+
 
 
     /**
@@ -330,6 +395,10 @@ public class ListGraph<V, E> implements Graph<V, E> {
             this.to = to;
         }
 
+        public EdgeInfo<V, E> info() {
+            return new EdgeInfo<V, E>(from.value, to.value, weight);
+        }
+
         @Override
         public boolean equals(Object obj) {
             Edge<V, E> otherEdge = (Edge<V, E>) obj;
@@ -345,6 +414,7 @@ public class ListGraph<V, E> implements Graph<V, E> {
         public String toString() {
             return "Edge{from=" + from + ", to=" + to + ", weight=" + weight + '}';
         }
+
     }
 
     public void print() {
