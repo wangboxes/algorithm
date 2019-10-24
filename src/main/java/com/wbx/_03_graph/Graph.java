@@ -62,6 +62,9 @@ public interface Graph<V, E> {
     void removeEdge(V from, V to);
 
 
+
+
+
     //图的遍历 : 从图中某一顶点出发访问图中其余顶点，且每一个顶点仅被访问一次
 
     /**
@@ -73,15 +76,27 @@ public interface Graph<V, E> {
      */
     void bfs(V begin, VertexVisitor<V> visitor);
 
+
+
     /**
      * 递归方式
      * 深度优先搜索（Depth First Search， DFS）,又称为宽度优先搜索、横向优先搜索（有向图、无向图都适用）
      *
      * 二叉树前序遍历就是一种深度优先搜索
      * @param begin 搜索的起始顶点
-     * @param visitor 对遍历到的每个顶点的访问方式
      */
-    void dfsWithRecursion(V begin, VertexVisitor<V> visitor);
+    void dfsWithRecursion(V begin);
+
+
+    /**
+     * 用栈实现的dfs
+     * @param begin
+     * @param visitor
+     */
+    void dfsWithStack(V begin, VertexVisitor<V> visitor);
+
+
+
 
 
     /*
@@ -98,13 +113,15 @@ public interface Graph<V, E> {
 
 
     /**
-     * 拓扑排序 : 将 AOV 网中所有活动排成一个序列，使得每个活动的前驱活动都排在该活动的前面
+     * 拓扑排序 : 将 AOV 网中所有活动排成一个序列，使得每个活动的前驱活动都排在该活动的前面（结果并不一定是唯一的）
      *
      * 前驱活动：有向边 起点的活动称 为 终点的前驱活动, 只有当一个活动的前驱全部都完成后，这个活动才能进行
      * 后继活动：有向边终点的活动称为起点的后继活动
+     *
      * @return
      */
     List<V> topologicalSort();
+
 
 
     /**
@@ -127,7 +144,7 @@ public interface Graph<V, E> {
         /**
          * 自定义的访问节点的方式
          * @param v
-         * @return
+         * @return 返回值为true时,代表结束访问
          */
         boolean visit(V v);
     }
