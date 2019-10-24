@@ -220,7 +220,7 @@ public class ListGraph<V, E> implements Graph<V, E> {
      * ② 重复操作 ①，直到找不到入度为 0 的顶点
      *
      * 如果此时 L 中的元素个数和顶点总数相同，说明拓扑排序完成
-     * 如果此时 L 中的元素个数少于顶点总数，说明原图中存在环，无法进行拓扑排序
+     * 如果此时 L 中的元素个数少于顶点总数，说明原图中存在环，无法进行拓扑排序(可以用来检测图中是否存在环)
      *
      * @return
      */
@@ -246,6 +246,7 @@ public class ListGraph<V, E> implements Graph<V, E> {
             // 放入返回结果中
             list.add(pollVertex.value);
             for (Edge<V, E> outEdge : pollVertex.outEdges) {
+                //如果存在环的话,那么换中的顶点的入度不会减为0,那么就不会入队列
                 int toIn = ins.get(outEdge.to) - 1;
                 if (toIn == 0) {
                     queue.offer(outEdge.to);

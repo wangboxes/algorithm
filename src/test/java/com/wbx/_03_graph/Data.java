@@ -65,7 +65,14 @@ public class Data {
 			{6, 4},
 			{7, 6}
 	};
-	
+
+	public static final Object[][] TOPO_LOOP = {
+			{0, 1},
+			{1, 2},
+			{2, 3},
+			{3, 1}
+	};
+
 	public static final Object[][] NO_WEIGHT2 = {
 			{0, 3}, 
 			{1, 3}, {1, 6},

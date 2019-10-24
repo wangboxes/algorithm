@@ -123,6 +123,13 @@ public class ListGraphTest {
         System.out.println(list);
     }
 
+    @Test
+    public void testTopologicalSort2() {
+        Graph<Object, Double> graph = Data.directedGraph(Data.TOPO_LOOP);
+        List<Object> list = graph.topologicalSort();
+        System.out.println(list);
+    }
+
 
 
 
