@@ -1,8 +1,10 @@
 package com.wbx._03_graph;
 
+import com.wbx._03_graph.Graph.PathInfo;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @describe：
@@ -149,6 +151,57 @@ public class ListGraphTest {
         graph.mstWithPrim().forEach(System.out::println);
         System.out.println("------------------------");
         graph.mstWithKruskal().forEach(System.out::println);
+    }
+
+    @Test
+    public void testShortestPath1() {
+        Graph<Object, Double> graph = Data.directedGraph(Data.SP);
+        //测试shortestPathWithBellmanFord的正常情况
+        Map<Object, PathInfo<Object, Double>> bellmanFordSp = graph.shortestPathWithBellmanFord("A");
+        if (bellmanFordSp == null) return;
+        bellmanFordSp.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
+
+        System.out.println("---------------------");
+
+        //测试shortestPathWithDijkstra的正常情况
+        Map<Object, PathInfo<Object, Double>> Dijkstra = graph.shortestPathWithDijkstra("A");
+        Dijkstra.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
+    }
+
+    @Test
+    public void testShortestPath2() {
+        Graph<Object, Double> graph = Data.directedGraph(Data.NEGATIVE_WEIGHT1);
+        //测试shortestPathWithBellmanFord,有负全边的情况-----结果正确
+        Map<Object, PathInfo<Object, Double>> bellmanFordSp = graph.shortestPathWithBellmanFord("A");
+        if (bellmanFordSp == null) return;
+        bellmanFordSp.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
+
+        System.out.println("---------------------");
+
+        //测试shortestPathWithDijkstra,有负全边的情况-----结果错误
+        Map<Object, PathInfo<Object, Double>> Dijkstra = graph.shortestPathWithDijkstra("A");
+        Dijkstra.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
+    }
+
+
+
+    @Test
+    public void testShortestPath3() {
+        //用Bellman-Ford检测负权环
+        Graph<Object, Double> graph = Data.directedGraph(Data.NEGATIVE_WEIGHT2);
+        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPathWithBellmanFord(0);
+        if (sp == null) return;
+        sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
     }
 
 

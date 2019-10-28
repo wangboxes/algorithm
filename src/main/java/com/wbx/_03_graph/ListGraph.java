@@ -3,6 +3,7 @@ package com.wbx._03_graph;
 import com.wbx._02_union_find._08_GenericUnionFind;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @describe： 用邻接表(Adjacency List)实现的有向带权图
@@ -371,7 +372,218 @@ public class ListGraph<V, E> extends Graph<V, E> {
     }
 
 
+   /* public Map<V, E> shortestPath(V begin) {
+		Vertex<V, E> beginVertex = vertices.get(begin);
+		if (beginVertex == null) {
+		    return null;
+        }
 
+		Map<V, E> selectedPaths = new HashMap<>();
+		Map<Vertex<V, E>, E> paths = new HashMap<>();
+		// 初始化paths
+		for (Edge<V, E> edge : beginVertex.outEdges) {
+			paths.put(edge.to, edge.weight);
+		}
+
+		while (!paths.isEmpty()) {
+			Entry<Vertex<V, E>, E> minEntry = getMinPath(paths);
+			// minVertex离开桌面
+			Vertex<V, E> minVertex = minEntry.getKey();
+			selectedPaths.put(minVertex.value, minEntry.getValue());
+			paths.remove(minVertex);
+			// 对它的minVertex的outEdges进行松弛操作
+			for (Edge<V, E> edge : minVertex.outEdges) {
+				// 如果edge.to已经离开桌面，就没必要进行松弛操作
+				if (selectedPaths.containsKey(edge.to.value)){
+				    continue;
+                }
+				// 新的可选择的最短路径：beginVertex到edge.from的最短路径 + edge.weight
+				E newWeight = weightManager.add(minEntry.getValue(), edge.weight);
+				// 以前的最短路径：beginVertex到edge.to的最短路径
+				E oldWeight = paths.get(edge.to);
+				if (oldWeight == null || weightManager.compare(newWeight, oldWeight) < 0) {
+					paths.put(edge.to, newWeight);
+				}
+			}
+		}
+
+		selectedPaths.remove(begin);
+		return selectedPaths;
+	}*/
+
+
+    @Override
+    public Map<V, PathInfo<V, E>> shortestPathWithDijkstra(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) {
+            return null;
+        }
+
+        //存放选择好的路径
+        Map<V, PathInfo<V, E>> selectedPaths = new HashMap<>();
+        Map<Vertex<V, E>, PathInfo<V, E>> paths = new HashMap<>();
+
+        // 初始化paths
+        for (Edge<V, E> edge : beginVertex.outEdges) {
+            PathInfo<V, E> path = new PathInfo<>();
+            path.weight = edge.weight;
+            path.edgeInfos.add(edge.info());
+            paths.put(edge.to, path);
+        }
+
+        while (!paths.isEmpty()) {
+            Entry<Vertex<V, E>, PathInfo<V, E>> minEntry = getMinPath(paths);
+
+            // minVertex离开桌面
+            Vertex<V, E> minVertex = minEntry.getKey();
+            PathInfo<V, E> minPath = minEntry.getValue();
+            selectedPaths.put(minVertex.value, minPath);
+
+            paths.remove(minVertex);
+
+            // 对它的minVertex的outEdges进行松弛操作
+            for (Edge<V, E> edge : minVertex.outEdges) {
+                // 如果edge.to已经离开桌面，就没必要进行松弛操作
+                if (selectedPaths.containsKey(edge.to.value)) {
+                    continue;
+                }
+                relaxForDijkstra(edge, minPath, paths);
+            }
+        }
+
+        selectedPaths.remove(begin);
+        return selectedPaths;
+    }
+
+
+    /*
+     * ◼ 松弛操作（Relaxation）：更新2个顶点之间的最短路径
+     * 这里一般是指：更新源点到另一个点的最短路径
+     * 松弛操作的意义：尝试找出更短的最短路径
+     *
+     * ◼ 如: 确定A到D的最短路径后，对DC、 DE边进行松弛操作，更新了A到C、 A到E的最短路径
+     */
+
+    /**
+     * 松弛
+     * @param edge 需要进行松弛的边
+     * @param fromPath edge的from的最短路径信息
+     * @param paths 存放着其他点（对于dijkstra来说，就是还没有离开桌面的点）的最短路径信息
+     */
+    private void relaxForDijkstra(Edge<V, E> edge, PathInfo<V, E> fromPath, Map<Vertex<V, E>, PathInfo<V, E>> paths) {
+        // 新的可选择的最短路径：beginVertex到edge.from的最短路径 + edge.weight
+        E newWeight = weightManager.add(fromPath.weight, edge.weight);
+
+        // 以前的最短路径：beginVertex到edge.to的最短路径
+        PathInfo<V, E> oldPath = paths.get(edge.to);
+
+        if (oldPath != null && weightManager.compare(newWeight, oldPath.weight) >= 0) {
+            return;
+        }
+
+        if (oldPath == null) {
+            oldPath = new PathInfo<>();
+            paths.put(edge.to, oldPath);
+        } else {
+            oldPath.edgeInfos.clear();
+        }
+
+        oldPath.weight = newWeight;
+        oldPath.edgeInfos.addAll(fromPath.edgeInfos);
+        oldPath.edgeInfos.add(edge.info());
+    }
+
+    /**
+     * 从paths中挑一个最小的路径出来(循环遍历--这里可以用堆来进行优化(未做))
+     * @param paths
+     * @return
+     */
+    private Entry<Vertex<V, E>, PathInfo<V, E>> getMinPath(Map<Vertex<V, E>, PathInfo<V, E>> paths) {
+        Iterator<Entry<Vertex<V, E>, PathInfo<V, E>>> it = paths.entrySet().iterator();
+
+        Entry<Vertex<V, E>, PathInfo<V, E>> minEntry = it.next();
+
+        while (it.hasNext()) {
+            Entry<Vertex<V, E>, PathInfo<V, E>> entry = it.next();
+            if (weightManager.compare(entry.getValue().weight, minEntry.getValue().weight) < 0) {
+                minEntry = entry;
+            }
+        }
+        return minEntry;
+    }
+
+
+    @Override
+    public Map<V, PathInfo<V, E>> shortestPathWithBellmanFord(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) {
+            return null;
+        }
+
+        Map<V, PathInfo<V, E>> selectedPaths = new HashMap<>();
+        PathInfo<V, E> beginPath = new PathInfo<>();
+        beginPath.weight = weightManager.zero();
+        selectedPaths.put(begin, beginPath);
+
+        //算法原理：对所有的边进行 V – 1 次松弛操作（V 是节点数量），得到所有可能的最短路径
+        int count = vertices.size() - 1;
+        for (int i = 0; i < count; i++) {
+            for (Edge<V, E> edge : edges) {
+                PathInfo<V, E> fromPath = selectedPaths.get(edge.from.value);
+                if (fromPath == null) {
+                    continue;
+                }
+                relaxForBellmanFord(edge, fromPath, selectedPaths);
+            }
+        }
+
+        //再进行一次松弛操作,如果还能松弛成功,说明存在负权环
+        for (Edge<V, E> edge : edges) {
+            PathInfo<V, E> fromPath = selectedPaths.get(edge.from.value);
+            if (fromPath == null) {
+                continue;
+            }
+            if (relaxForBellmanFord(edge, fromPath, selectedPaths)) {
+                System.out.println("有负权环");
+                return null;
+            }
+        }
+
+        selectedPaths.remove(begin);
+        return selectedPaths;
+    }
+
+
+    /**
+     * 松弛
+     * @param edge 需要进行松弛的边
+     * @param fromPath edge的from的最短路径信息
+     * @param paths 存放着其他点（对于dijkstra来说，就是还没有离开桌面的点）的最短路径信息
+     */
+    private boolean relaxForBellmanFord(Edge<V, E> edge, PathInfo<V, E> fromPath, Map<V, PathInfo<V, E>> paths) {
+        // 新的可选择的最短路径：beginVertex到edge.from的最短路径 + edge.weight
+        E newWeight = weightManager.add(fromPath.weight, edge.weight);
+
+        // 以前的最短路径：beginVertex到edge.to的最短路径
+        PathInfo<V, E> oldPath = paths.get(edge.to.value);
+
+        if (oldPath != null && weightManager.compare(newWeight, oldPath.weight) >= 0) {
+            return false;
+        }
+
+        if (oldPath == null) {
+            oldPath = new PathInfo<>();
+            paths.put(edge.to.value, oldPath);
+        } else {
+            oldPath.edgeInfos.clear();
+        }
+
+        oldPath.weight = newWeight;
+        oldPath.edgeInfos.addAll(fromPath.edgeInfos);
+        oldPath.edgeInfos.add(edge.info());
+
+        return true;
+    }
 
     /**
      * 顶点

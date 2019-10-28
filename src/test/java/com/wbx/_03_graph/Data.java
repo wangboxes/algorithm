@@ -217,5 +217,10 @@ public class Data {
 		public Double add(Double w1, Double w2) {
 			return w1 + w2;
 		}
-	};
+
+        @Override
+        public Double zero() {
+            return 0.0;
+        }
+    };
 }

@@ -1,6 +1,8 @@
 package com.wbx._03_graph;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -152,8 +154,76 @@ public abstract class Graph<V, E> {
      */
     public abstract Set<EdgeInfo<V, E>> mstWithPrim();
 
-
     public abstract Set<EdgeInfo<V, E>> mstWithKruskal();
+
+
+    /*
+     * 最短路径
+     *
+     * 最短路径的典型应用之一：路径规划问题
+     * ◼ 求解最短路径的3个经典算法 :
+     *
+     * 单源最短路径算法
+     * ✓ Dijkstra（迪杰斯特拉算法）
+     * ✓ Bellman-Ford（贝尔曼-福特算法）
+     *
+     * 多源最短路径算法
+     * ✓ Floyd（弗洛伊德算法）
+     */
+
+
+    /**
+     * 用Dijkstra求解最短路径
+     *
+     *◼ Dijkstra 属于单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径
+     * 使用前提：不能有负权边
+     * 时间复杂度：可优化至 O ElogV ， E 是边数量， V 是节点数量
+     *
+     * ◼ 由荷兰的科学家 Edsger Wybe Dijkstra 发明，曾在1972年获得图灵奖
+     *
+     * 后离开桌面的小石头,都是被先离开桌面的小石头拉起来的
+     * @param begin
+     * @return
+     */
+    public abstract Map<V, PathInfo<V, E>> shortestPathWithDijkstra(V begin);
+
+    /**
+     * 用Bellman-Ford求解最短路径
+     *
+     * ◼ Bellman-Ford 也属于单源最短路径算法，支持负权边，还能检测出是否有负权环
+     * 算法原理：对所有的边进行 V – 1 次松弛操作（V 是节点数量），得到所有可能的最短路径
+     * 时间复杂度： O(EV) ， E 是边数量， V 是节点数量
+     * @param begin
+     * @return
+     */
+    public abstract Map<V, PathInfo<V, E>> shortestPathWithBellmanFord(V begin);
+
+
+    public static class PathInfo<V, E> {
+
+        protected E weight;
+
+        protected List<EdgeInfo<V, E>> edgeInfos = new LinkedList<>();
+
+        public E getWeight() {
+            return weight;
+        }
+        public void setWeight(E weight) {
+            this.weight = weight;
+        }
+        public List<EdgeInfo<V, E>> getEdgeInfos() {
+            return edgeInfos;
+        }
+        public void setEdgeInfos(List<EdgeInfo<V, E>> edgeInfos) {
+            this.edgeInfos = edgeInfos;
+        }
+        @Override
+        public String toString() {
+            return "PathInfo [weight=" + weight + ", edgeInfos=" + edgeInfos + "]";
+        }
+    }
+
+
 
 
     /**
@@ -187,6 +257,12 @@ public abstract class Graph<V, E> {
          * @return
          */
         E add(E w1, E w2);
+
+        /**
+         * 用来确定0值是啥
+         * @return
+         */
+        E zero();
     }
 
     public static class EdgeInfo<V, E> {
