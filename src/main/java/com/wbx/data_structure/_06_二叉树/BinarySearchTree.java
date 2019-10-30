@@ -1,6 +1,7 @@
 package com.wbx.data_structure._06_二叉树;
 
-import com.example.wbx_demo.my_数据结构._06_二叉树.printer.BinaryTreeInfo;
+
+import com.wbx.data_structure._06_二叉树.printer.BinaryTreeInfo;
 
 import java.util.Comparator;
 import java.util.LinkedList;

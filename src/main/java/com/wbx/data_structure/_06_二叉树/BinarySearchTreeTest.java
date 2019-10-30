@@ -1,6 +1,7 @@
 package com.wbx.data_structure._06_二叉树;
 
-import com.example.wbx_demo.my_数据结构._06_二叉树.printer.BinaryTrees;
+
+import com.wbx.data_structure._06_二叉树.printer.BinaryTrees;
 
 /**
  * @author WANGBOXIONG297
