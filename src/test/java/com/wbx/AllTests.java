@@ -1,6 +1,6 @@
 package com.wbx;
 
-import com.wbx._01_sort.SortAllTests;
+import com.wbx.algorithm._01_sort.SortAllTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
