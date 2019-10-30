@@ -9,6 +9,26 @@ import java.util.Comparator;
  * @author wbx
  * @decription: 二叉堆
  * @date 2019-5-27
+ *
+ * 堆的一个重要性质：任意节点的值总是 ≥（≤ ） 子节点的值
+ * 如果任意节点的值总是 ≥ 子节点的值，称为： 最大堆、 大根堆、 大顶堆
+ * 如果任意节点的值总是 ≤ 子节点的值，称为： 最小堆、 小根堆、 小顶堆
+ * ◼ 由此可见，堆中的元素必须具备可比较性（跟二叉搜索树一样）
+ *
+ * 二叉堆的逻辑结构就是一棵完全二叉树，所以也叫完全二叉堆
+ * ◼ 鉴于完全二叉树的一些特性， 二叉堆的底层（物理结构）一般用数组实现即可
+ *
+ * ◼ 索引 i 的规律（n 是元素数量）
+ *
+ * 如果 i = 0 ，它是根节点
+ *
+ * 如果 i > 0 ，它的父节点的索引为 floor( (i – 1) / 2 )
+ *
+ * 如果 2i + 1 ≤ n – 1，它的左子节点的索引为 2i + 1
+ * 如果 2i + 1 > n – 1 ，它无左子节点
+ *
+ * 如果 2i + 2 ≤ n – 1 ，它的右子节点的索引为 2i + 2
+ * 如果 2i + 2 > n – 1 ，它无右子节点
  */
 public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
 
@@ -92,10 +112,17 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
     }
 
     @Override
+    public E get() {
+        emptyCheck();
+        return elements[0];
+    }
+
+    @Override
     public void add(E element) {
         elementNotNullCheck(element);
         ensureCapacity(size + 1);
-        elements[size] = element;//往数组的末尾添加元素
+        //往数组的末尾添加元素
+        elements[size] = element;
         //堆化
         siftUp(size);
         size++;
@@ -105,6 +132,15 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
     /**
      * 自下往上堆化(上滤)
      *
+     * ◼ 循环执行以下操作:
+     * 如果 node ＞ 父节点
+     * ✓ 与父节点交换位置
+     *
+     * 如果 node ≤ 父节点，或者 node 没有父节点
+     * ✓ 退出循环
+     *
+     * 时间复杂度： O(logn)
+     *
      * @param index
      */
     private void siftUp(int index) {
@@ -112,7 +148,9 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
         while (index > 0) {
             int pIndex = (index - 1) >> 1;
             E parent = elements[pIndex];
-            if (compare(element, parent) <= 0) break;
+            if (compare(element, parent) <= 0) {
+                break;
+            }
 
             // 将父元素存储在index位置
             elements[index] = parent;
@@ -128,7 +166,9 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
         while (index > 0) {
             int pIndex = (index - 1) >> 1;
             E parent = elements[pIndex];
-            if (comparator.compare(element, parent) <= 0) return;
+            if (comparator.compare(element, parent) <= 0) {
+                return;
+            }
 
             // 交换index、pIndex 位置的内容
             E tmp = elements[index];
@@ -159,11 +199,6 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
         elements = newElements;
     }
 
-    @Override
-    public E get() {
-        emptyCheck();
-        return elements[0];
-    }
 
     @Override
     public E remove() {
@@ -186,7 +221,8 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
      */
     private void siftDown(int index) {
         E element = elements[index];
-        int half = size >> 1; //第一个叶子节点的索引
+        //第一个叶子节点的索引
+        int half = size >> 1;
 
         // 第一个叶子节点的索引 == 非叶子节点的数量
         // index < 第一个叶子节点的索引
@@ -211,7 +247,9 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
                 child = rightChild;
             }
 
-            if (compare(element, child) >= 0) break;
+            if (compare(element, child) >= 0) {
+                break;
+            }
 
             // 将子节点存放到index位置
             elements[index] = child;
@@ -256,6 +294,7 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
 
 
     //------------------打印------------------------
+
     @Override
     public Object root() {
         return 0;
