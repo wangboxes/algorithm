@@ -31,6 +31,7 @@ public interface Heap<E> {
     void add(E element);
 
     /**
+     *
      * 获得堆顶元素
      * @return 
      */

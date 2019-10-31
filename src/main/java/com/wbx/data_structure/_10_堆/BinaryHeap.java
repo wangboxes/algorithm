@@ -187,7 +187,9 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
      */
     private void ensureCapacity(int capacity) {
         int oldCapacity = elements.length;
-        if (oldCapacity >= capacity) return;
+        if (oldCapacity >= capacity) {
+            return;
+        }
 
         //扩容为原来的1.5倍
         int newCapacity = oldCapacity + (oldCapacity >> 1);
@@ -200,6 +202,17 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
     }
 
 
+    /**
+     * 1. 用最后一个节点覆盖根节点
+     * 2. 删除最后一个节点
+     * 3. 循环执行以下操作(下虑)（图中的 43 简称为 node）
+     * 如果 node < 最大的子节点
+     * ✓ 与最大的子节点交换位置
+     * 如果 node ≥ 最大的子节点， 或者 node 没有子节点
+     * ✓ 退出循环
+     *
+     * @return
+     */
     @Override
     public E remove() {
         emptyCheck();
@@ -207,6 +220,7 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
         E root = elements[0];
         //尾元素替代头元素
         elements[0] = elements[lastIndex];
+        //删除最后一个节点
         elements[lastIndex] = null;
         if (size != 0) {
             siftDown(0);
@@ -221,7 +235,7 @@ public class BinaryHeap<E> implements Heap<E>, BinaryTreeInfo {
      */
     private void siftDown(int index) {
         E element = elements[index];
-        //第一个叶子节点的索引
+        //第一个有叶子节点的索引: 左子节点的索引为 2i + 1 ,如 2i + 1 > size -1 说明有子节点,==> i>(size-2)/2 == size/2 -1  ===> i=size/2 为最后一个有子节点的索引
         int half = size >> 1;
 
         // 第一个叶子节点的索引 == 非叶子节点的数量
