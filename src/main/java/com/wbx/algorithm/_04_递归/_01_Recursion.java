@@ -8,7 +8,7 @@ package com.wbx.algorithm._04_递归;
  * 注意：使用递归不是为了求得最优解，是为了简化解决问题的思路，代码会更加简洁
  * ◼ 递归求出来的很有可能不是最优解，也有可能是最优解
  */
-public class Recursion {
+public class _01_Recursion {
 
     /**
      * 直接调用自身

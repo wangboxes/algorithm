@@ -7,7 +7,7 @@ package com.wbx.algorithm._04_递归;
  * ◼ 斐波那契数列： 1、 1、 2、 3、 5、 8、 13、 21、 34、 ……
  * F(1)=1， F(2)=1, F(n)=F(n-1)+F(n-2)（ n≥3）
  */
-public class Fib {
+public class _02_Fib {
 
 
     /**
