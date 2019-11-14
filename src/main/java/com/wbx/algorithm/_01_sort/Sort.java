@@ -1,5 +1,6 @@
 package com.wbx.algorithm._01_sort;
 
+import com.wbx.algorithm._01_sort.comparison._02_SelectionSort;
 import com.wbx.algorithm._01_sort.comparison._07_ShellSort;
 import com.wbx.algorithm._01_sort.notComparison.*;
 import com.wbx.tools.Student;
@@ -106,6 +107,11 @@ public abstract class Sort<T extends Comparable> implements Comparable<Sort<T>> 
 	}
 
 	private boolean isStable() {
+
+		if (this instanceof _02_SelectionSort) {
+			return false;
+		}
+
 		if (this instanceof _07_ShellSort) {
 			//希尔排序是非稳定排序,因为这个代码测出来的结果对希尔排序不确定,所以这里明确返回false
 			return false;

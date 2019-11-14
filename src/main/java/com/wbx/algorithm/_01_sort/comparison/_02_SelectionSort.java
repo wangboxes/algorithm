@@ -15,7 +15,7 @@ import com.wbx.algorithm._01_sort.Sort;
  *
  * 	总结:
  * 	选择排序的交换次数要远远少于冒泡排序，平均性能优于冒泡排序
- * 	最好、最坏、平均时间复杂度： O(n2)，空间复杂度： O(1)，属于稳定排序
+ * 	最好、最坏、平均时间复杂度： O(n2)，空间复杂度： O(1)，属于不稳定排序(如: 3,5,10,2,1,2)
  */
 public class _02_SelectionSort<T extends Comparable> extends Sort<T> {
 
