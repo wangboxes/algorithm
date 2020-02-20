@@ -46,8 +46,8 @@ public class _203_移除链表元素 {
 
     public ListNode removeElements2(ListNode head, int val) {
         ListNode header = new ListNode(-1);
-        header.next = head;
         ListNode cur = header;
+        header.next = head;
         while(cur.next != null){
             if(cur.next.val == val ){
                 cur.next = cur.next.next;

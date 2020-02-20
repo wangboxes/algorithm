@@ -6,7 +6,7 @@ package com.wbx.leetcode.链表;
  * @Date：2019/4/20 19:49
  * @author：wbx
  */
-public class _237_删除链表中的节点 {
+public class _01_237_删除链表中的节点 {
 
     //执行用时 : 1 ms, 在Delete Node in a Linked List的Java提交中击败了85.18% 的用户
     public void deleteNode(ListNode node) {

@@ -56,7 +56,7 @@ public class _06_QuickSort<T extends Comparable> extends Sort<T> {
         //当begin==end的时候就结束
         while (begin < end) {
 
-            //左右遍历的时候,可以采用这种写法(3个while)
+            //左右遍历的时候,可以采用这种写法(3个while + break)
             while (begin < end) {
                 /*优化2:
                 思考： cmp 位置的判断分别改为 ≥、 ≤ 会起到什么效果？

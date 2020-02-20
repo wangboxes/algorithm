@@ -26,6 +26,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <!--jre代表是给java用的.  guava还有安卓的版本  <version>27.1-android</version> -->
+      <version>27.0.1-jre</version>
+    </dependency>
+
   </dependencies>
 
 

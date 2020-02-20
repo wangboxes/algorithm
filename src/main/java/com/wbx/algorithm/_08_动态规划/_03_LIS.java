@@ -13,6 +13,7 @@ public class _03_LIS {
     }
 
     /**
+     * ◼ 状态转移方程
      * 当 nums[i] > nums[j]
      * ✓ nums[i] 可以接在 nums[j] 后面，形成一个比 dp(j) 更长的上升子序列，长度为 dp(j) + 1
      * ✓ dp(i) = max { dp(i), dp(j) + 1 }
