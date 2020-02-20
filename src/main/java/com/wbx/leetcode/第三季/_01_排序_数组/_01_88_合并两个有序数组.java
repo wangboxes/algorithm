@@ -15,9 +15,11 @@ public class _01_88_合并两个有序数组 {
 
         //把nums2的元素都移到num1，就代表合并完成
         while (i2 >= 0) {
+
             if (i1 >= 0 && nums1[i1] > nums2[i2]) {
                 nums1[cur--] = nums1[i1--];
-            } else {
+
+            } else { //i1 < 0 || nums1[i1] <= nums2[i2]
                 nums1[cur--] = nums2[i2--];
             }
         }
