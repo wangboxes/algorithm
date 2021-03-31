@@ -30,7 +30,7 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <!--jre代表是给java用的.  guava还有安卓的版本  <version>27.1-android</version> -->
-      <version>27.0.1-jre</version>
+      <version>29.0-jre</version>
     </dependency>
 
   </dependencies>
